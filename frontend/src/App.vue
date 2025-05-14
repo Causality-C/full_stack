@@ -3,7 +3,7 @@
         <h1>Todo List</h1>
         <div class="add-todo">
             <input v-model="newTodo" @keyup.enter="addTodo" placeholder="Add a new todo..." class="todo-input">
-            <button @click="addTodo" class="add-button">Add</button>
+            <button @click="addTodo" class="add-button" :disabled="!newTodo.trim()">Add</button>
         </div>
         <div class="todo-list">
             <div v-for="todo in todos" :key="todo.id" class="todo-item">
@@ -107,8 +107,14 @@ h1 {
     cursor: pointer;
 }
 
-.add-button:hover {
+.add-button:hover:not(:disabled) {
     background-color: #3aa876;
+}
+
+.add-button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+    opacity: 0.7;
 }
 
 .todo-list {

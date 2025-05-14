@@ -15,7 +15,8 @@ models.Base.metadata.create_all(bind=engine)
 app = FastAPI()
 
 # Mount the static files directory at /app instead of root
-app.mount("/app", StaticFiles(directory="../frontend/dist", html=True), name="static")
+if os.getenv("ENV") == "production":
+    app.mount("/app", StaticFiles(directory="frontend/dist", html=True), name="static")
 
 # Configure CORS
 app.add_middleware(
